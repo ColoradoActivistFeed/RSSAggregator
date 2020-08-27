@@ -2,14 +2,13 @@ package aggregator
 
 import (
 	"fmt"
-	"github.com/gorilla/feeds"
-	log "github.com/sirupsen/logrus"
 	"html/template"
 	"os"
 	"strings"
 
+	"github.com/gorilla/feeds"
 	"github.com/jaytaylor/html2text"
-
+	log "github.com/sirupsen/logrus"
 )
 
 func htmlToString(s string) string {
@@ -21,8 +20,6 @@ func htmlToString(s string) string {
 
 	return s
 }
-
-
 
 func (a *Aggregator) WriteHTML() error {
 
@@ -89,17 +86,17 @@ func (a *Aggregator) WriteHTML() error {
 		defer func() { _ = f.Close() }()
 
 		err = templates.ExecuteTemplate(f, "index", struct {
-			Title string
-			Description string
-			Content *feeds.Feed
+			Title         string
+			Description   string
+			Content       *feeds.Feed
 			Organizations map[string]Organization
-			Org Organization
+			Org           Organization
 		}{
-			Title: a.Config.Name,
-			Description: a.Config.Description,
-			Content: content,
+			Title:         a.Config.Name,
+			Description:   a.Config.Description,
+			Content:       content,
 			Organizations: a.Config.Organizations,
-			Org: org,
+			Org:           org,
 		})
 		if err != nil {
 			return err
@@ -118,14 +115,14 @@ func (a *Aggregator) WriteHTML() error {
 		defer func() { _ = f.Close() }()
 
 		err = templates.ExecuteTemplate(f, templateName, struct {
-			Title string
-			Description string
-			Content *feeds.Feed
+			Title         string
+			Description   string
+			Content       *feeds.Feed
 			Organizations map[string]Organization
-			Org Organization
+			Org           Organization
 		}{
-			Title: a.Config.Name,
-			Description: a.Config.Description,
+			Title:         a.Config.Name,
+			Description:   a.Config.Description,
 			Organizations: a.Config.Organizations,
 		})
 		if err != nil {
@@ -137,4 +134,3 @@ func (a *Aggregator) WriteHTML() error {
 
 	return nil
 }
-
