@@ -1,0 +1,54 @@
+{{define "index"}}
+
+{{template "header" .}}
+
+<div class="container">
+
+    <div class="row">
+
+        <div class="col-sm-8 blog-main">
+
+            {{range .Content.Items}}
+            <div class="blog-post">
+                <h2 class="blog-post-title"><a href="{{.Link.Href}}">{{.Title}}</a></h2>
+                <p class="blog-post-meta">{{.Created.Format "Jan 02, 2006 15:04:05 MDT"}} by <a href="#">{{.Author.Name}}</a></p>
+
+                <p>{{htmlToString .Content}} <a href="{{.Link.Href}}">Read More</a></p>
+            </div><!-- /.blog-post -->
+            {{end}}
+
+{{/*            <nav class="blog-pagination">*/}}
+{{/*                <a class="btn btn-outline-primary" href="#">Older</a>*/}}
+{{/*                <a class="btn btn-outline-secondary disabled" href="#">Newer</a>*/}}
+{{/*            </nav>*/}}
+
+        </div><!-- /.blog-main -->
+
+        <div class="col-sm-3 offset-sm-1 blog-sidebar">
+            <div class="sidebar-module sidebar-module-inset">
+                <h4>{{.Org.Author}}</h4>
+                <p>{{.Org.Description}} <a href="{{.Org.Link}}">Website</a></p>
+                <ul>
+                    <li><a href="rss/{{.Org.Slug}}.xml">RSS</a></li>
+                    <li><a href="atom/{{.Org.Slug}}.xml">Atom</a></li>
+                    <li><a href="json/{{.Org.Slug}}.json">JSON</a></li>
+                </ul>
+            </div>
+            <div class="sidebar-module">
+                <h4>Sources</h4>
+                <ul>
+                    <li><a href="index.html">All</a></li>
+                    {{range $name, $org := .Organizations}}
+                    <li><a href="{{$org.Slug}}.html">{{$name}}</a></li>
+                    {{end}}
+                </ul>
+            </div>
+        </div><!-- /.blog-sidebar -->
+
+    </div><!-- /.row -->
+
+</div><!-- /.container -->
+
+{{template "footer" .}}
+
+{{end}}

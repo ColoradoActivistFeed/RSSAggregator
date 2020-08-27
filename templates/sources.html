@@ -1,0 +1,31 @@
+{{define "sources"}}
+
+    {{template "header" .}}
+
+    <div class="container">
+
+        <div class="row">
+
+            <div class="col-sm-8 blog-main">
+
+                {{range $name, $org := .Organizations}}
+                    <div class="blog-post">
+                        <h2 class="blog-post-title"><a href="{{$org.Slug}}.html">{{$name}}</a></h2>
+                        <p>{{$org.Description}} <a href="{{$org.Link}}">Website</a></p>
+                        <p> Subscribe:
+                            <a href="rss/{{$org.Slug}}.xml">RSS</a>
+                            <a href="atom/{{$org.Slug}}.xml">Atom</a>
+                            <a href="json/{{$org.Slug}}.json">JSON</a>
+                        </p>
+                    </div><!-- /.blog-post -->
+                {{end}}
+
+            </div><!-- /.blog-main -->
+
+        </div><!-- /.row -->
+
+    </div><!-- /.container -->
+
+    {{template "footer" .}}
+
+{{end}}

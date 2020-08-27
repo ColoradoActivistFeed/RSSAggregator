@@ -1,0 +1,208 @@
+{{define "header"}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>{{.Title}}</title>
+    <link rel="canonical" href="">
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <style>
+        /*
+         * Globals
+         */
+
+        @media (min-width: 48em) {
+            html {
+                font-size: 18px;
+            }
+        }
+
+        body {
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            color: #555;
+        }
+
+        h1, .h1,
+        h2, .h2,
+        h3, .h3,
+        h4, .h4,
+        h5, .h5,
+        h6, .h6 {
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            font-weight: normal;
+            color: #333;
+        }
+
+
+        /*
+         * Override Bootstrap's default container.
+         */
+
+        .container {
+            max-width: 60rem;
+        }
+
+
+        /*
+         * Masthead for nav
+         */
+
+        .blog-masthead {
+            background-color: #428bca;
+            -webkit-box-shadow: inset 0 -2px 5px rgba(0, 0, 0, .1);
+            box-shadow: inset 0 -2px 5px rgba(0, 0, 0, .1);
+            margin-bottom: 1rem;
+        }
+
+        /* Nav links */
+        .blog-nav-item {
+            position: relative;
+            display: inline-block;
+            padding: 10px;
+            font-weight: 500;
+            color: #cdddeb;
+        }
+        .blog-nav-item:hover,
+        .blog-nav-item:focus {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        /* Active state gets a caret at the bottom */
+        .blog-nav .active {
+            color: #fff;
+        }
+        .blog-nav .active:after {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 0;
+            margin-left: -5px;
+            vertical-align: middle;
+            content: " ";
+            border-right: 5px solid transparent;
+            border-bottom: 5px solid;
+            border-left: 5px solid transparent;
+        }
+
+        /*
+         * Blog name and description
+         */
+
+        .blog-header {
+            padding-bottom: 1.25rem;
+            margin-bottom: 2rem;
+            border-bottom: .05rem solid #eee;
+        }
+        .blog-title {
+            margin-bottom: 0;
+            font-size: 2rem;
+            font-weight: normal;
+        }
+        .blog-description {
+            font-size: 1.1rem;
+            color: #999;
+        }
+
+        @media (min-width: 40em) {
+            .blog-title {
+                font-size: 3.5rem;
+            }
+        }
+
+
+        /*
+         * Main column and sidebar layout
+         */
+
+        /* Sidebar modules for boxing content */
+        .sidebar-module {
+            padding: 1rem;
+            /*margin: 0 -1rem 1rem;*/
+            font-size: 0.85rem;
+        }
+        .sidebar-module-inset {
+            padding: 1rem;
+            background-color: #f5f5f5;
+            border-radius: .25rem;
+        }
+        .sidebar-module-inset p:last-child,
+        .sidebar-module-inset ul:last-child,
+        .sidebar-module-inset ol:last-child {
+            margin-bottom: 0;
+        }
+
+
+        /* Pagination */
+        .blog-pagination {
+            margin-bottom: 4rem;
+        }
+        .blog-pagination > .btn {
+            border-radius: 2rem;
+        }
+
+
+        /*
+         * Blog posts
+         */
+
+        .blog-post {
+            margin-bottom: 2rem;
+        }
+        .blog-post-title {
+            margin-bottom: .25rem;
+            font-size: 1.3rem;
+        }
+        .blog-post-meta {
+            margin-bottom: 0.75rem;
+            color: #999;
+        }
+
+
+        /*
+         * Footer
+         */
+
+        .blog-footer {
+            padding: 2.5rem 0;
+            color: #999;
+            text-align: center;
+            background-color: #f9f9f9;
+            border-top: .05rem solid #e5e5e5;
+        }
+        .blog-footer p:last-child {
+            margin-bottom: 0;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div class="blog-masthead">
+    <div class="container">
+        <nav class="blog-nav">
+            <a class="blog-nav-item" href="index.html">All</a>
+            <a class="blog-nav-item" href="sources.html">Sources</a>
+            <a class="blog-nav-item" href="about.html">About</a>
+            <a class="blog-nav-item" href="contact.html">Contact</a>
+        </nav>
+    </div>
+</div>
+
+<div class="blog-header">
+    <div class="container">
+        <h1 class="blog-title">{{.Title}}</h1>
+        <p class="lead blog-description">{{.Description}}</p>
+    </div>
+</div>
+{{end}}
