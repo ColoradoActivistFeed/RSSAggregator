@@ -16,7 +16,7 @@ func (a *Aggregator) Commit() error {
 		return err
 	}
 
-	err = ExecCommand(dir, "git", "add", "docs/")
+	err = ExecCommand("git", dir, "git", "add", "docs/")
 	if err != nil {
 		return err
 	}
@@ -26,12 +26,12 @@ func (a *Aggregator) Commit() error {
 		return err
 	}
 	t := time.Now().In(loc).Format(time.RFC850)
-	err = ExecCommand(dir, "git", "commit", "-m", fmt.Sprintf("content update %s", t))
+	err = ExecCommand("git", dir, "git", "commit", "-m", fmt.Sprintf("content update %s", t))
 	if err != nil {
 		return err
 	}
 
-	err = ExecCommand(dir, "git", "push", "origin", "master")
+	err = ExecCommand("git", dir, "git", "push", "origin", "master")
 	if err != nil {
 		return err
 	}
@@ -39,7 +39,7 @@ func (a *Aggregator) Commit() error {
 	return nil
 }
 
-func ExecCommand(dir string, command string, arg ...string) error {
+func ExecCommand(outputPrefix, dir, command string, arg ...string) error {
 
 	cmd := exec.Command(command, arg...)
 	cmd.Dir = dir
@@ -51,7 +51,7 @@ func ExecCommand(dir string, command string, arg ...string) error {
 	go func() {
 		scanner := bufio.NewScanner(stderr)
 		for scanner.Scan() {
-			log.Info(scanner.Text())
+			log.Infof("%s: %s", outputPrefix, scanner.Text())
 		}
 		if err := scanner.Err(); err != nil {
 			log.WithError(err).Info("failed to read from process standard error")
@@ -65,7 +65,7 @@ func ExecCommand(dir string, command string, arg ...string) error {
 	go func() {
 		scanner := bufio.NewScanner(stdout)
 		for scanner.Scan() {
-			log.Info(scanner.Text())
+			log.Infof("%s: %s", outputPrefix, scanner.Text())
 		}
 		if err := scanner.Err(); err != nil {
 			log.WithError(err).Info("failed to read from process standard out")
