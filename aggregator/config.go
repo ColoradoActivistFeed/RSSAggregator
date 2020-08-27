@@ -3,6 +3,7 @@ package aggregator
 type Config struct {
 	Name                   string
 	Description            string
+	Link string
 	AutoCommit 			   bool
 	Organizations          map[string]Organization
 	RefreshIntervalSeconds int64

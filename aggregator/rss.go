@@ -13,14 +13,14 @@ import (
 
 func (a *Aggregator) Fetch() error {
 
+	loc, err := time.LoadLocation("America/Denver")
+	if err != nil {
+		return err
+	}
+
 	a.Content = map[string]*feeds.Feed{}
 	fp := gofeed.NewParser()
 	for name, f := range a.Config.Organizations {
-
-		loc, err := time.LoadLocation("America/Denver")
-		if err != nil {
-			return err
-		}
 
 		now := time.Now().In(loc)
 		content := &feeds.Feed{
@@ -68,10 +68,10 @@ func (a *Aggregator) Fetch() error {
 	content := &feeds.Feed{
 		Title:       a.Config.Name,
 		Description: a.Config.Description,
-		Created:     time.Now(),
+		Created:     time.Now().In(loc),
 		Items:       []*feeds.Item{},
 		Author:      &feeds.Author{Name: "", Email: ""},
-		Link:        &feeds.Link{Href: ""},
+		Link:        &feeds.Link{Href: a.Config.Link},
 	}
 	for _, i := range a.Content {
 		for _, c := range i.Items {
