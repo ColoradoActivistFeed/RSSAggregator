@@ -3,10 +3,11 @@ package aggregator
 import (
 	"bufio"
 	"fmt"
-	log "github.com/sirupsen/logrus"
 	"os"
 	"os/exec"
 	"time"
+
+	log "github.com/sirupsen/logrus"
 )
 
 func (a *Aggregator) Commit() error {

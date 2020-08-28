@@ -1,0 +1,20 @@
+{
+  "Name": "",
+  "Description": "",
+  "Link": "",
+  "AutoCommit": true,
+  "Organizations": {
+    "": {
+      "Description": "",
+      "Author": "",
+      "Slug": "",
+      "Link": "",
+      "Sources": []
+    }
+  },
+  "RefreshIntervalSeconds": 0,
+  "TemplatePath": "templates",
+  "OutputPath": "docs",
+  "StaticAssets": "static",
+  "TimeZone": "America/Denver"
+}

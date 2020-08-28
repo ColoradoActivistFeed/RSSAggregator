@@ -11,8 +11,8 @@ import (
 
 	"github.com/docker/docker/client"
 	"github.com/gorilla/feeds"
-	log "github.com/sirupsen/logrus"
 	"github.com/otiai10/copy"
+	log "github.com/sirupsen/logrus"
 )
 
 type Aggregator struct {
@@ -65,7 +65,6 @@ func (a *Aggregator) Start() error {
 
 	c := make(chan os.Signal)
 	signal.Notify(c, os.Interrupt, syscall.SIGTERM, os.Kill, syscall.SIGHUP, syscall.SIGKILL, syscall.SIGQUIT)
-
 
 	ticker := time.NewTicker(time.Second * time.Duration(a.Config.RefreshIntervalSeconds))
 	if err := a.Run(); err != nil {

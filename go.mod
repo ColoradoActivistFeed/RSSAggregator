@@ -1,4 +1,4 @@
-module ActivistFeed
+module github.com/ColoradoActivistFeed/RSSAggregator
 
 go 1.14
 

@@ -7,12 +7,10 @@ import (
 	"os"
 	"time"
 
-	"ActivistFeed/aggregator"
+	"github.com/ColoradoActivistFeed/RSSAggregator/aggregator"
 
 	log "github.com/sirupsen/logrus"
 )
-
-
 
 func main() {
 
@@ -34,20 +32,24 @@ func main() {
 
 	if *outputSample {
 		cfg := &aggregator.Config{
-			Name:        "",
-			Description: "",
+			Name:                   "",
+			Description:            "",
+			Link:                   "",
+			AutoCommit:             true,
+			RefreshIntervalSeconds: 0,
+			TemplatePath:           "templates",
+			OutputPath:             "docs",
+			StaticAssets:           "static",
+			TimeZone:               "America/Denver",
 			Organizations: map[string]aggregator.Organization{
 				"": {
 					Description: "",
-					Sources:     []string{},
 					Author:      "",
-					Link:        "",
 					Slug:        "",
+					Link:        "",
+					Sources:     []string{},
 				},
 			},
-			RefreshIntervalSeconds: 0,
-			TemplatePath:           "",
-			OutputPath:             "",
 		}
 		data, err := json.MarshalIndent(cfg, "", "  ")
 		if err != nil {
@@ -98,4 +100,3 @@ func main() {
 		}
 	}
 }
-
