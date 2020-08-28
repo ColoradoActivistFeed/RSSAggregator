@@ -4,6 +4,8 @@ import (
 	"bufio"
 	"context"
 	"encoding/json"
+	"fmt"
+	"os"
 	"strings"
 	"time"
 
@@ -14,7 +16,7 @@ import (
 )
 
 const containerName = "rss-aggregator-rss-bridge"
-const imageName = "rssbridge/rss-bridge:latest" // TODO pin version
+const imageName = "rssbridge/rss-bridge:2020-02-26" // TODO pin version
 
 type dockerPullProgress struct {
 	Status         string `json:"status"`
@@ -141,6 +143,16 @@ func (a *Aggregator) PullDockerImage() (err error) {
 
 func (a *Aggregator) CreateDockerContainer() (id string, err error) {
 
+	whiteListFile := fmt.Sprintf("%s/rss-bridge-whitelist", os.TempDir())
+	f, err := os.OpenFile(whiteListFile, os.O_CREATE|os.O_RDWR|os.O_TRUNC, 0644)
+	if err != nil {
+		return "", fmt.Errorf("could not create whitelist file in temp, %s", err.Error())
+	}
+	defer func() { _ = f.Close() }()
+	if _, err := f.WriteString("*\n"); err != nil {
+		return "", fmt.Errorf("could not create whitelist file in temp, %s", err.Error())
+	}
+
 	r, err := a.docker.ContainerCreate(context.Background(),
 		&dockerContainer.Config{
 			Image: imageName,
@@ -154,6 +166,7 @@ func (a *Aggregator) CreateDockerContainer() (id string, err error) {
 			RestartPolicy: dockerContainer.RestartPolicy{
 				Name: "always",
 			},
+			Binds: []string{fmt.Sprintf("%s:/app/whitelist.txt", whiteListFile)},
 		},
 		nil,
 		containerName,
