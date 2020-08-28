@@ -21,7 +21,7 @@ func (a *Aggregator) Commit() error {
 		return err
 	}
 
-	loc, err := time.LoadLocation("America/Denver")
+	loc, err := time.LoadLocation(a.Config.TimeZone)
 	if err != nil {
 		return err
 	}

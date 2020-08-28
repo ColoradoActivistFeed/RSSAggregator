@@ -13,7 +13,7 @@ import (
 
 func (a *Aggregator) Fetch() error {
 
-	loc, err := time.LoadLocation("America/Denver")
+	loc, err := time.LoadLocation(a.Config.TimeZone)
 	if err != nil {
 		return err
 	}

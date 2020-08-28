@@ -12,6 +12,7 @@ import (
 	"github.com/docker/docker/client"
 	"github.com/gorilla/feeds"
 	log "github.com/sirupsen/logrus"
+	"github.com/otiai10/copy"
 )
 
 type Aggregator struct {
@@ -47,6 +48,14 @@ func (a *Aggregator) LoadConfig(configPath string) error {
 
 	if err := json.Unmarshal(data, a.Config); err != nil {
 		return err
+	}
+
+	if a.Config.TimeZone == "" {
+		a.Config.TimeZone = "UTC"
+	}
+
+	if a.Config.StaticAssets == "" {
+		a.Config.StaticAssets = "static"
 	}
 
 	return nil
@@ -90,6 +99,10 @@ func (a *Aggregator) Run() error {
 		if err := os.MkdirAll(path, 0755); err != nil {
 			return fmt.Errorf("could not create path %s, %s", path, err.Error())
 		}
+	}
+
+	if err := copy.Copy(a.Config.StaticAssets, a.Config.OutputPath); err != nil {
+		return fmt.Errorf("could not copy static assets, %s", err.Error())
 	}
 
 	if err := a.WriteHTML(); err != nil {
