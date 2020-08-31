@@ -143,7 +143,12 @@ func (a *Aggregator) PullDockerImage() (err error) {
 
 func (a *Aggregator) CreateDockerContainer() (id string, err error) {
 
-	whiteListFile := fmt.Sprintf("%s/rss-bridge-whitelist", os.TempDir())
+	home, err := os.UserHomeDir()
+	if err != nil {
+		return "", fmt.Errorf("could not determine home directory, %s", err.Error())
+	}
+
+	whiteListFile := fmt.Sprintf("%s/.rss-bridge-whitelist", home)
 	f, err := os.OpenFile(whiteListFile, os.O_CREATE|os.O_RDWR|os.O_TRUNC, 0644)
 	if err != nil {
 		return "", fmt.Errorf("could not create whitelist file in temp, %s", err.Error())
